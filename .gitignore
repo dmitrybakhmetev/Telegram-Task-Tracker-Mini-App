@@ -1,0 +1,16 @@
+# Виртуальное окружение Python
+venv/
+env/
+ENV/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Системные файлы macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Конфиденциальные данные (на будущее, если будешь выносить токены в .env)
+.env
