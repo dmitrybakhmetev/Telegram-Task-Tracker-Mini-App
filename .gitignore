@@ -1,15 +1,4 @@
-# Виртуальное окружение Python
+.env
 venv/
-env/
-ENV/
-
-# Кэш Python
 __pycache__/
-*.py[cod]
-*$py.class
-
-# Системные файлы macOS / Windows
 .DS_Store
-Thumbs.db
-
-# Конфиденциальные данные 
