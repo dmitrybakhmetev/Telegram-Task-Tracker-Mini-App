@@ -11,13 +11,30 @@ from aiogram.types import (
     WebAppInfo,
 )
 
-# Токен твоего бота, полученный от @BotFather
-TOKEN = "8883361544:AAH2o3XyDAefVMnnOWymWzDc8BQ0aTzRoro"
+import asyncio
+import logging
+import os
+import sys
+from aiogram import Bot, Dispatcher, F, types
+from aiogram.filters import Command, CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    WebAppInfo,
+)
+from dotenv import load_dotenv
 
-# URL твоего Mini App (пока локальный или ngrok-адрес)
-WEB_APP_URL = "https://your-mini-app-frontend-url.com"
+# Загружаем переменные из файла .env
+load_dotenv()
 
-# Инициализация бота и диспетчера
+TOKEN = os.getenv("BOT_TOKEN")
+WEB_APP_URL = os.getenv("WEB_APP_URL")
+
+if not TOKEN:
+  raise ValueError("❌ Ошибка: Не найден BOT_TOKEN в переменных окружения!")
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
