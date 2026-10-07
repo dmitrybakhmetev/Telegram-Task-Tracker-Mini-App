@@ -6,6 +6,7 @@ from aiogram.types import (
     WebAppInfo,
 )
 from config import WEB_APP_URL
+from keyboards.reply import main_keyboard
 
 router = Router()
 
@@ -14,31 +15,22 @@ router = Router()
 async def cmd_start(message: types.Message):
   user_name = message.from_user.first_name
 
-  # Главное меню с инлайн-кнопками
-  menu_kb = InlineKeyboardMarkup(inline_keyboard=[
-      [
-          InlineKeyboardButton(
-              text="📅 Открыть календарь (Mini App)",
-              web_app=WebAppInfo(url=WEB_APP_URL),
-          )
-      ],
-      [
-          InlineKeyboardButton(
-              text="➕ Создать задачу", callback_data="btn_create_task"
-          ),
-          InlineKeyboardButton(
-              text="📋 Список задач", callback_data="btn_list_tasks"
-          ),
-      ],
-      [
-          InlineKeyboardButton(
-              text="⚙️ Управление задачами", callback_data="btn_manage_tasks"
-          )
-      ],
-  ])
+  # Инлайн-кнопка для Mini App (внутри сообщения)
+  webapp_kb = InlineKeyboardMarkup(inline_keyboard=[[
+      InlineKeyboardButton(
+          text="📅 Открыть календарь (Mini App)",
+          web_app=WebAppInfo(url=WEB_APP_URL),
+      )
+  ]])
 
   await message.answer(
-      f"Привет, {user_name}! 👋\n\nЯ твой бот-трекер задач. Выбери нужное"
-      " действие с помощью меню ниже:",
-      reply_markup=menu_kb,
+      f"Привет, {user_name}! 👋\n\nЯ твой бот-трекер задач. Нажми кнопку ниже,"
+      " чтобы открыть календарь, или используй меню внизу экрана для"
+      " управления задачами через чат.",
+      reply_markup=webapp_kb,
+  )
+
+  # Отправляем сообщение с нижней клавиатурой
+  await message.answer(
+      "⬇️ Панель управления внизу:", reply_markup=main_keyboard
   )

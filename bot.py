@@ -3,7 +3,7 @@ import logging
 import sys
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
-from handlers import start
+from handlers import start, tasks
 
 
 async def main():
@@ -19,6 +19,7 @@ async def main():
 
   # Подключаем роутеры (модули с обработчиками)
   dp.include_router(start.router)
+  dp.include_router(tasks.router)
 
   print("Бот успешно запущен и готов к работе...")
   await bot.delete_webhook(drop_pending_updates=True)
